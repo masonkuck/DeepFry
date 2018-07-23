@@ -1,0 +1,11 @@
+C:\Users\HM20s17K\Desktop\Tranparentifier\DeepFry\bin\Debug\DeepFry.exe.config
+C:\Users\HM20s17K\Desktop\Tranparentifier\DeepFry\bin\Debug\DeepFry.exe
+C:\Users\HM20s17K\Desktop\Tranparentifier\DeepFry\bin\Debug\DeepFry.pdb
+C:\Users\HM20s17K\Desktop\Tranparentifier\DeepFry\obj\Debug\DeepFry.csprojAssemblyReference.cache
+C:\Users\HM20s17K\Desktop\Tranparentifier\DeepFry\obj\Debug\App.g.cs
+C:\Users\HM20s17K\Desktop\Tranparentifier\DeepFry\obj\Debug\DeepFry_MarkupCompile.cache
+C:\Users\HM20s17K\Desktop\Tranparentifier\DeepFry\obj\Debug\DeepFry.Properties.Resources.resources
+C:\Users\HM20s17K\Desktop\Tranparentifier\DeepFry\obj\Debug\DeepFry.csproj.GenerateResource.cache
+C:\Users\HM20s17K\Desktop\Tranparentifier\DeepFry\obj\Debug\DeepFry.csproj.CoreCompileInputs.cache
+C:\Users\HM20s17K\Desktop\Tranparentifier\DeepFry\obj\Debug\DeepFry.exe
+C:\Users\HM20s17K\Desktop\Tranparentifier\DeepFry\obj\Debug\DeepFry.pdb

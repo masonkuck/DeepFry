@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepFry", "DeepFry\DeepFry.csproj", "{A927CE2C-D045-4326-BEDD-1BD484D3D24A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeepFryCore", "DeepFryCore\DeepFryCore.csproj", "{9C9C8B6E-331D-4C3D-ACEA-5BE94562D113}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A927CE2C-D045-4326-BEDD-1BD484D3D24A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A927CE2C-D045-4326-BEDD-1BD484D3D24A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A927CE2C-D045-4326-BEDD-1BD484D3D24A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A927CE2C-D045-4326-BEDD-1BD484D3D24A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C9C8B6E-331D-4C3D-ACEA-5BE94562D113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C9C8B6E-331D-4C3D-ACEA-5BE94562D113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C9C8B6E-331D-4C3D-ACEA-5BE94562D113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C9C8B6E-331D-4C3D-ACEA-5BE94562D113}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F532AFF-40B5-4607-A691-B49F63F831FE}
+	EndGlobalSection
+EndGlobal
