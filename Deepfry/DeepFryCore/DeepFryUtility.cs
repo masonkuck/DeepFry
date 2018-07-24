@@ -14,6 +14,8 @@ namespace DeepFryCore
         #region Parameters
         private long encoderLevel = 0L;
 
+        private int noisePercentage = 0;
+
         private int redScew = 0;
         private int blueScew = 0;
         private int greenScew = 0;
@@ -24,13 +26,13 @@ namespace DeepFryCore
         {
         }
 
-        public DeepFryUtility(string Path, ulong encoderLevel = 1L, uint redScew = 0, uint blueScew = 0, uint greenScew = 0)
+        public DeepFryUtility(string Path, ulong encoderLevel = 1L, uint redScew = 0, uint blueScew = 0, uint greenScew = 0, uint noisePercentage = 50)
         {
             if (string.IsNullOrEmpty(Path))
                 throw new ArgumentException("Parameter '" + nameof(Path) + "' must not be empty.");
 
             if (encoderLevel > 100)
-                throw new ArgumentException("Parameter '" + nameof(encoderLevel) + "' must be less than 100");
+                throw new ArgumentException("Parameter '" + nameof(encoderLevel) + "' must be less than or equal to 100");
 
             if (redScew > 255)
                 throw new ArgumentException("Parameter '" + nameof(redScew) + "' must be less than 255");
@@ -41,9 +43,13 @@ namespace DeepFryCore
             if (greenScew > 255)
                 throw new ArgumentException("Parameter '" + nameof(greenScew) + "' must be less than 255");
 
+            if (noisePercentage > 255)
+                throw new ArgumentException("Parameter '" + nameof(noisePercentage) + "' must be less than or equal to 100");
+
 
             this.Path = Path;
             this.encoderLevel = (long)encoderLevel;
+            this.noisePercentage = (int)noisePercentage;
             this.redScew = (int)redScew;
             this.blueScew = (int)blueScew;
             this.greenScew = (int)greenScew;
@@ -67,7 +73,7 @@ namespace DeepFryCore
                     {
                         // Randomly chooses pixels to make grainy
                         int next = rnd.Next(0, 100);
-                        if (next >= 55)
+                        if (next >= noisePercentage)
                         {
                             Color pixel = bitmap.GetPixel(x, y);
 
