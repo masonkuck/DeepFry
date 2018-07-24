@@ -12,19 +12,5 @@ namespace DeepFry
     public partial class App : Application
     {
 
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (ofd.ShowDialog() == true)
-            {
-                DeepFryUtility utility = new DeepFryUtility(ofd.FileName);
-                Bitmap deepFried = utility.DeepFry();
-
-                utility.Save(deepFried);
-            }
-
-            Environment.Exit(1);
-        }
-
     }
 }
