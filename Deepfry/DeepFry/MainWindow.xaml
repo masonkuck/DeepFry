@@ -47,6 +47,10 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
@@ -62,10 +66,27 @@
             <Label Content="{Binding ElementName=noiseSlider, Path=Value}" Grid.Row="1" Grid.Column="1"/>
             <Slider Name="noiseSlider" Grid.Row="1" Grid.Column="2" Margin="20,0,20,5" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1"/>
 
+            <Label Content="Circle X" Grid.Row="2"/>
+            <Label Content="{Binding ElementName=xSlider, Path=Value}" Grid.Row="2" Grid.Column="1"/>
+            <Slider Name="xSlider" Grid.Row="2" Grid.Column="2" Margin="20,0,20,5" Minimum="0" Maximum="1000" IsSnapToTickEnabled="True" TickFrequency="1" Value="500"/>
+
+            <Label Content="Circle Y" Grid.Row="3"/>
+            <Label Content="{Binding ElementName=ySlider, Path=Value}" Grid.Row="3" Grid.Column="1"/>
+            <Slider Name="ySlider" Grid.Row="3" Grid.Column="2" Margin="20,0,20,5" Minimum="0" Maximum="1000" IsSnapToTickEnabled="True" TickFrequency="1" Value="230"/>
+
+            <Label Content="Radius" Grid.Row="4"/>
+            <Label Content="{Binding ElementName=radiusSlider, Path=Value}" Grid.Row="4" Grid.Column="1"/>
+            <Slider Name="radiusSlider" Grid.Row="4" Grid.Column="2" Margin="20,0,20,5" Minimum="0" Maximum="1000" IsSnapToTickEnabled="True" TickFrequency="1" Value="230"/>
+
         </Grid>
         
         <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
             <Button Name="convertButton" HorizontalAlignment="Center" Height="25" Content="DEEPFRY" Margin="5" Click="convertButton_Click"/>
+            <Button Name="distortButton" HorizontalAlignment="Center" Height="25" Content="Distort" Margin="5" Click="distortButton_Click" Grid.Column="1"/>
         </Grid>
     </Grid>
 </Window>

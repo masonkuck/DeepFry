@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 
 namespace DeepFryCore
 {
@@ -109,6 +110,68 @@ namespace DeepFryCore
             }
         }
 
+        /// <summary>
+        /// THIS IS SUPER WIP, I AM TESTING THINGS SORRY
+        /// </summary>
+        /// <param name="CircleX"></param>
+        /// <param name="CircleY"></param>
+        /// <param name="Radius"></param>
+        /// <returns></returns>
+        public Bitmap WIPDistort(uint CircleX, uint CircleY, uint Radius)
+        {
+            Bitmap bitmap = new Bitmap(Path);
+            Bitmap bitmapBlank = new Bitmap(bitmap.Width, bitmap.Height);
+
+            List<DistortionPoint> pixels = GetPointsInCircle(bitmap, (int)CircleX, (int)CircleY, (int)Radius).OrderBy(x => x.DistanceToOrigin).ToList();
+            //pixels = pixels.Where(x => x.DistanceToOrigin > 50).ToList();
+
+
+            double stepDownRate = pixels.Count / Radius;
+            double maxDistance = pixels.Max(x => x.DistanceToOrigin);
+            foreach (DistortionPoint point in pixels)
+            {
+                bool left = false, up = false;
+                if (point.XDistance < 0)
+                    left = true;
+
+                if (point.YDistance > 0)
+                    up = true;
+
+                int factor = (int)Radius / 10;
+
+                if (left)
+                {
+                    if (up)
+                    {
+                        bitmap.SetPixel(point.X + factor, point.Y - factor, bitmap.GetPixel(point.X, point.Y));
+                        bitmapBlank.SetPixel(point.X + factor, point.Y - factor, bitmap.GetPixel(point.X, point.Y));
+                    }
+                    else
+                    {
+
+                        bitmap.SetPixel(point.X + factor, point.Y + factor, bitmap.GetPixel(point.X, point.Y));
+                        bitmapBlank.SetPixel(point.X + factor, point.Y + factor, bitmap.GetPixel(point.X, point.Y));
+                    }
+                }
+                else
+                {
+                    if (up)
+                    {
+                        bitmap.SetPixel(point.X - factor, point.Y - factor, bitmap.GetPixel(point.X, point.Y));
+                        bitmapBlank.SetPixel(point.X - factor, point.Y - factor, bitmap.GetPixel(point.X, point.Y));
+                    }
+                    else
+                    {
+                        bitmap.SetPixel(point.X - factor, point.Y + factor, bitmap.GetPixel(point.X, point.Y));
+                        bitmapBlank.SetPixel(point.X - factor, point.Y + factor, bitmap.GetPixel(point.X, point.Y));
+                    }
+                }
+
+            }
+
+            return bitmap;
+        }
+
         public void Save(Bitmap bitmap, uint EncoderLevel)
         {
             if (bitmap == null)
@@ -177,6 +240,33 @@ namespace DeepFryCore
                 list[k] = list[n];
                 list[n] = value;
             }
+        }
+
+        // Get all pixels within a defined cicle.
+        // (pointX - cicleX)^2 + (pointY - cicleY)^2 <= radiusSquard
+        // basically if the distance of a pixed to the center of the circle is less than or equal 
+        // to the radius squared (area of the circle) then it is included in the list
+        private List<DistortionPoint> GetPointsInCircle(Bitmap bitmap, int CircleX, int CircleY, int Radius)
+        {
+            List<DistortionPoint> points = new List<DistortionPoint>();
+
+            double radiusSquared = Math.Pow(Radius, 2);
+            for (int ImageX = 0; ImageX < bitmap.Width; ImageX++)
+            {
+                for (int ImageY = 0; ImageY < bitmap.Height; ImageY++)
+                {
+                    double dx = ImageX - CircleX;
+                    double dy = ImageY - CircleY;
+                    double distanceSquared = Math.Pow(dx, 2) + Math.Pow(dy, 2);
+
+                    if (distanceSquared <= radiusSquared)
+                    {
+                        points.Add(new DistortionPoint(ImageX, ImageY, CircleX, CircleY));
+                    }
+                }
+            }
+
+            return points;
         }
         #endregion
     }

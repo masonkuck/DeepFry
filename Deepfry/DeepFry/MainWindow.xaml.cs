@@ -66,9 +66,11 @@ namespace DeepFry
                 // not used in the present implementation of this example app. Only used for saving
                 //int encodingLevel = (int)encodingSlider.Value;
                 int noise = (int)noiseSlider.Value;
-                
+
                 util = new DeepFryCore.DeepFryUtility(ofd.FileName);
+
                 Bitmap preview = util.DeepFry(RedScew: (uint)redValue, GreenScew: (uint)greenValue, BlueScew: (uint)blueValue, NoisePercentage: (uint)noise);
+
 
                 PreviewImage previewImage = new PreviewImage(preview);
 
@@ -76,5 +78,23 @@ namespace DeepFry
             }
         }
 
+        private void distortButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            if (ofd.ShowDialog() == true)
+            {
+                int circleX = (int)xSlider.Value;
+                int circleY = (int)ySlider.Value;
+                int radius = (int)radiusSlider.Value;
+
+                util = new DeepFryCore.DeepFryUtility(ofd.FileName);
+                Bitmap preview = util.WIPDistort((uint)circleX, (uint)circleY, (uint)radius);
+
+                PreviewImage previewImage = new PreviewImage(preview);
+
+                previewImage.ShowDialog();
+            }
+        }
     }
 }
