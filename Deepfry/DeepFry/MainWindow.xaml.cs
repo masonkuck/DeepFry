@@ -63,11 +63,12 @@ namespace DeepFry
 
             if (ofd.ShowDialog() == true)
             {
-                int encodingLevel = (int)encodingSlider.Value;
+                // not used in the present implementation of this example app. Only used for saving
+                //int encodingLevel = (int)encodingSlider.Value;
                 int noise = (int)noiseSlider.Value;
-
-                util = new DeepFryCore.DeepFryUtility(ofd.FileName, redScew: (uint)redValue, greenScew: (uint)greenValue, blueScew: (uint)blueValue, noisePercentage: (uint)noise, encoderLevel: (uint)encodingLevel);
-                Bitmap preview = util.DeepFry();
+                
+                util = new DeepFryCore.DeepFryUtility(ofd.FileName);
+                Bitmap preview = util.DeepFry(RedScew: (uint)redValue, GreenScew: (uint)greenValue, BlueScew: (uint)blueValue, NoisePercentage: (uint)noise);
 
                 PreviewImage previewImage = new PreviewImage(preview);
 

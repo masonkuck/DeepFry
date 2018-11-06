@@ -13,13 +13,7 @@ namespace DeepFryCore
         #endregion
 
         #region Parameters
-        private long encoderLevel = 0L;
 
-        private int noisePercentage = 0;
-
-        private int redScew = 0;
-        private int blueScew = 0;
-        private int greenScew = 0;
         #endregion
 
         #region Init
@@ -27,41 +21,38 @@ namespace DeepFryCore
         {
         }
 
-        public DeepFryUtility(string Path, ulong encoderLevel = 1L, uint redScew = 0, uint blueScew = 0, uint greenScew = 0, uint noisePercentage = 50)
+        public DeepFryUtility(string Path)
         {
-            if (string.IsNullOrEmpty(Path))
-                throw new ArgumentException("Parameter '" + nameof(Path) + "' must not be empty.");
-
-            if (encoderLevel > 100)
-                throw new ArgumentException("Parameter '" + nameof(encoderLevel) + "' must be less than or equal to 100");
-
-            if (redScew > 255)
-                throw new ArgumentException("Parameter '" + nameof(redScew) + "' must be less than 255");
-
-            if (blueScew > 255)
-                throw new ArgumentException("Parameter '" + nameof(blueScew) + "' must be less than 255");
-
-            if (greenScew > 255)
-                throw new ArgumentException("Parameter '" + nameof(greenScew) + "' must be less than 255");
-
-            if (noisePercentage > 255)
-                throw new ArgumentException("Parameter '" + nameof(noisePercentage) + "' must be less than or equal to 100");
-
+            if (string.IsNullOrEmpty(Path) || !File.Exists(Path))
+                throw new ArgumentException("'" + nameof(Path) + "' does not exist at path or path is Invalid.");
 
             this.Path = Path;
-            this.encoderLevel = (long)encoderLevel;
-            this.noisePercentage = (int)noisePercentage;
-            this.redScew = (int)redScew;
-            this.blueScew = (int)blueScew;
-            this.greenScew = (int)greenScew;
         }
         #endregion
 
         #region Public Methods
-        public Bitmap DeepFry()
+        public Bitmap DeepFry(uint RedScew = 0, uint BlueScew = 0, uint GreenScew = 0, uint NoisePercentage = 50)
         {
             if (string.IsNullOrEmpty(Path) || !File.Exists(Path))
                 throw new ArgumentException("'" + nameof(Path) + "' does not exist at path or path is Invalid.");
+
+            if (RedScew > 255)
+                throw new ArgumentException("Parameter '" + nameof(RedScew) + "' must be less than 255");
+
+            if (BlueScew > 255)
+                throw new ArgumentException("Parameter '" + nameof(BlueScew) + "' must be less than 255");
+
+            if (GreenScew > 255)
+                throw new ArgumentException("Parameter '" + nameof(GreenScew) + "' must be less than 255");
+
+            if (NoisePercentage > 255)
+                throw new ArgumentException("Parameter '" + nameof(NoisePercentage) + "' must be less than or equal to 100");
+
+
+            int noisePercentage = (int)NoisePercentage;
+            int redScew = (int)RedScew;
+            int blueScew = (int)BlueScew;
+            int greenScew = (int)GreenScew;
 
             try
             {
@@ -118,10 +109,13 @@ namespace DeepFryCore
             }
         }
 
-        public void Save(Bitmap bitmap)
+        public void Save(Bitmap bitmap, uint EncoderLevel)
         {
             if (bitmap == null)
                 throw new NullReferenceException("Parameter '" + nameof(bitmap) + "' does not exist at path or path is Invalid.");
+
+            if (EncoderLevel > 100)
+                throw new ArgumentException("Parameter '" + nameof(EncoderLevel) + "' must be less than or equal to 100");
 
             try
             {
@@ -130,7 +124,7 @@ namespace DeepFryCore
 
                 Encoder myEncoder = Encoder.Quality;
                 EncoderParameters myEncoderParameters = new EncoderParameters(1);
-                EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, encoderLevel);
+                EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, (int)EncoderLevel);
                 myEncoderParameters.Param[0] = myEncoderParameter;
 
                 bitmap.Save(GetRandomPath(), jpgEncoder, myEncoderParameters);
