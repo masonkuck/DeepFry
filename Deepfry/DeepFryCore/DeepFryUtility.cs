@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -77,20 +78,27 @@ namespace DeepFryCore
                         {
                             Color pixel = bitmap.GetPixel(x, y);
 
-                            // If the pixel is some variation of black and white, make it a raindom color in the red spectrum. 
-                            // This doesnt need to scew red, I just thought it looked better.
+                            // If the pixel is some variation of black and white (ish), make it a raindom color scewed by the users input. 
                             if (Math.Abs(pixel.R - pixel.G) <= 20 &&
                                 Math.Abs(pixel.R - pixel.B) <= 20 &&
                                 Math.Abs(pixel.G - pixel.B) <= 20)
                             {
-                                Color newPixel = Color.FromArgb(rnd.Next(redScew, 255), rnd.Next(greenScew, 255), rnd.Next(blueScew, 255));
+                                int redRand = rnd.Next(redScew, 255);
+                                int greenRand = rnd.Next(greenScew, 255);
+                                int blueRand = rnd.Next(blueScew, 255);
+
+                                Color newPixel = Color.FromArgb(redRand, greenRand, blueRand);
 
                                 bitmap.SetPixel(x, y, newPixel);
                             }
-                            // else make the transpose the colors so it isnt entirely random. (this is messed up on purpose)
+                            // else make the transpose the colors randomly
                             else
                             {
-                                Color newPixel = Color.FromArgb(pixel.G, pixel.B, pixel.R);
+                                List<int> colors = new List<int> { pixel.R, pixel.G, pixel.B };
+
+                                Shuffle(colors);
+
+                                Color newPixel = Color.FromArgb(colors[0], colors[1], colors[2]);
 
                                 bitmap.SetPixel(x, y, newPixel);
                             }
@@ -161,6 +169,20 @@ namespace DeepFryCore
         {
             ImageConverter converter = new ImageConverter();
             return (byte[])converter.ConvertTo(img, typeof(byte[]));
+        }
+
+        private Random rng = new Random();
+        private void Shuffle(List<int> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                int value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
         }
         #endregion
     }
